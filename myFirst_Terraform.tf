@@ -8,8 +8,8 @@
 provider "aws" {
   access_key = "XXXXXXXXXXXXXXXXXXXX"
   secret_key = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-  profile = "default"
-  region  = "us-west-1"
+     profile = "default"
+     region  = "us-west-1"
 }
 
 resource "aws_s3_bucket" "prod_tf_course" {
@@ -26,7 +26,7 @@ resource "aws_default_vpc" "default" {}
 # These aws_default_subnets are needed for the ELBs near the end of this code
 resource "aws_default_subnet" "default_az1" {
   availability_zone = "us-west-1a"
-    tags =  {
+               tags =  {
       "Terraform" : "true"
     }
 }
@@ -34,7 +34,7 @@ resource "aws_default_subnet" "default_az1" {
 
 resource "aws_default_subnet" "default_az2" {
   availability_zone = "us-west-1b"
-    tags =  {
+               tags =  {
       "Terraform" : "true"
     }
 }
@@ -63,10 +63,10 @@ resource "aws_security_group" "prod_web"{
   } 
     egress {
 #     allowing all ports out
-      from_port = 0
-      to_port   = 0
+        from_port = 0
+        to_port   = 0
 #     allowing all protocols out
-      protocol  = "-1"
+        protocol  = "-1"
 #     allowing traffic out to any IP address
       cidr_blocks = ["0.0.0.0/0"]
     }
@@ -81,7 +81,7 @@ resource "aws_security_group" "prod_web"{
 # Setting up an NGINIX Open Source Web Server Certified by Bitnami in the NCal region 
    resource "aws_instance" "prod_web" {
 # Adding in the ability he change the instance count
-     count  = 2 
+            count  = 2 
      
      ami           = "ami-06d6181142644523b"
      instance_type = "t3a.small"
@@ -90,7 +90,7 @@ resource "aws_security_group" "prod_web"{
        aws_security_group.prod_web.id
      ]
 
-     tags = {
+               tags = {
       "Terraform" : "true"
      } 
 
@@ -98,7 +98,7 @@ resource "aws_security_group" "prod_web"{
 
 # This decouples the creation of the elastic IP from its assignment, for scalability purposes 
       resource "aws_eip_association" "prod_web" {
-        instance_id = aws_instance.prod_web.0.id
+          instance_id = aws_instance.prod_web.0.id
         allocation_id = aws_eip.prod_web.id
       }
 
