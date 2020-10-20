@@ -121,7 +121,7 @@ resource "aws_elb" "prod_web" {
         subnets   = [aws_default_subnet.default_az1.id, aws_default_subnet.default_az2.id]
 
 # So our instances and our ELB  can talk to each other and talk to the world we need to add the below security group. We will
-# only add one security group.  In Terraform security groups expect a list or and array, hence the brackets.
+# only add one security group.  In Terraform security groups expect a list or an array, hence the brackets.
 
   security_groups = [aws_security_group.prod_web.id]
 
